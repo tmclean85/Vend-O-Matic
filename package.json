@@ -1,0 +1,20 @@
+{
+  "name": "vend-o-matic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tmclean85/Vend-O-Matic.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tmclean85/Vend-O-Matic/issues"
+  },
+  "homepage": "https://github.com/tmclean85/Vend-O-Matic#readme"
+}
