@@ -52,23 +52,38 @@ describe('vendingMachine', () => {
     })
   })
 
-  describe('when an item is selected for purchase', () => {
-    it('should either dispense the item or give an out of stock or insufficient payment message', () => {
-      expect(vendor.dispenseItem("chips", 1.25));
+  describe('when an out of stock item is selected for purchase', () => {
+    it('should provide an error message', () => {
+      expect(vendor.dispenseItem("chips", 1.25)).toEqual('Out of stock, please make another selection');
     })
   })
 
-  describe('when stock is getting low', () => {
-    it('should check current stock and refill to max if low', () => {
+  describe('when insufficient payment is provided', () => {
+    it('should provide an error message', () => {
+      expect(vendor.dispenseItem("chocolate bar", 0.50)).toEqual('Please insert more coins')
+    })
+  })
+
+  describe('when stock is found to be getting low', () => {
+    it('should check all current stock and refill to max if low', () => {
       expect(vendor.restockItem()).toMatchObject(vendor.restockItem());
     })
   })  
 
-  describe('track total money inserted', () => {
-    it('should track payment', () => {
+  describe('when a customer is inserting coins', () => {
+    it('should track total payment given', () => {
       expect(vendor.trackPayment(payment)).toBe(1.75);
     })
   })
+
+  describe('when a customer overpays or underpays', () => {
+    it('should either give change or ask for the outstanding balance', () => {
+// 2 passed in as item cost vs sum of payment array value of 1.75 should ask for additional 0.25    
+      expect(vendor.giveChange(2, vendor.trackPayment(payment))).toEqual(-0.25)
+    })
+  })
+
+
 
 
 

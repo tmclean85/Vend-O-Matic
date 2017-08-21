@@ -86,9 +86,9 @@ class vendingMachine {
     const paymentGiven = payment;
     for(let i = 0; i < paymentGiven.length; i++) {
       finalPayment += (paymentGiven[i].value * paymentGiven[i].given)
-      console.log(finalPayment)
+      // console.log(finalPayment)
     }
-    console.log('final', finalPayment);
+    // console.log('final', finalPayment);
     return finalPayment;
   }
 
@@ -98,27 +98,33 @@ class vendingMachine {
     for(let i = 0; i < newItems.length; i++) {
       if(newItems[i].type === item) {
         if(newItems[i].currentStock > 0 && newItems[i].price <= coinsPaid) {
-          console.log(newItems[i].currentStock)
+          // console.log(newItems[i].currentStock)
           newItems[i].currentStock -= 1;
-          console.log(newItems[i].currentStock)          
-          console.log(item);
+          // console.log(newItems[i].currentStock)          
+          // console.log(item);
           return item;
         } else if(newItems[i].currentStock > 0 && newItems[i].price > coinsPaid) { 
-          console.log('insufficient payment');
+          // console.log('insufficient payment');
           return 'Please insert more coins';
         } else if(newItems[i].currentStock === 0) {
-          console.log('no stock');
+          // console.log('no stock');
           return 'Out of stock, please make another selection';
         }
       }
     }
   }
 
+  giveChange(coinsNeeded, coinsPaid) {
+    let currentBalance = (coinsNeeded - coinsPaid);
+    if(currentBalance > 0) {
+      console.log('insufficient, pay', currentBalance, 'more');
+      return (-currentBalance);
+    } else {
+      console.log('change given:', -currentBalance);
+      return(currentBalance);
+    }
 
-
-  // giveChange(cost, payment, coin) {
-  //   console.log('payment:', payment)
-  // }
+  }
 
 }
 
