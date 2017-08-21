@@ -7,23 +7,31 @@ describe('vendingMachine', () => {
     vendor = new vendingMachine;
   });
 
-  describe('checking available item stock', () => {
+  describe('when checking current machine stock', () => {
     it('should return available stock for each item', () => {
-      expect(vendor.checkAvailableStock());
+      expect(vendor.checkAvailableStock()).toMatchObject(vendor.checkAvailableStock());
     })
   })
 
-  describe('check available funds in machine', () => {
+  describe('when checking current machine funds', () => {
     it('should return available funds by coin type', () => {
-      expect(vendor.checkAvailableFunds());
+      expect(vendor.checkAvailableFunds()).toMatchObject(vendor.checkAvailableFunds());
     })
   })
 
-  describe('restock items when they get low', () => {
-    it('should refill items when they reach their minStock point', () => {
-      expect(vendor.restockItem());
+  describe('when an item is selected for purchase', () => {
+    it('should either dispense the item or give an out of stock or insufficient payment message', () => {
+      expect(vendor.dispenseItem("chips", 1.25));
     })
   })
+
+  describe('when stock is getting low', () => {
+    it('should check current stock and refill to max if low', () => {
+      expect(vendor.restockItem()).toMatchObject(vendor.restockItem());
+    })
+  })  
+
+
 
 
 })

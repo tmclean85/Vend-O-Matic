@@ -30,7 +30,7 @@ let items = [
   {
     type: "chips",
     price: 1,
-    currentStock: 4,
+    currentStock: 0,
     maxStock: 25,
     minStock: 5
   },
@@ -61,32 +61,49 @@ class vendingMachine {
   
   checkAvailableStock() {
     for(let i = 0; i < items.length; i++) {
-      return (items[i].type, items[i].currentStock)
+      return ({product: items[i].type, stock: items[i].currentStock})
     }
   }
 
   checkAvailableFunds() {
     for(let i = 0; i < change.length; i++) {
-      return (change[i].title, change[i].currentQuantity)
+      return ({denomination: change[i].title, quantity: change[i].currentQuantity})
     }
   }
 
   restockItem() {
-    console.log(items)
-    const newItems = items;
+    let newItems = items;
     for(let i = 0; i < newItems.length; i++) {
       if(newItems[i].currentStock <= newItems[i].minStock) {
         newItems[i].currentStock = newItems[i].maxStock;
       }
     }
-    console.log(newItems);
     return newItems;
   }
 
-  
-
-
+  dispenseItem(item, payment) {
+    const newItems = items;
+    const newChange = change;
+    for(let i = 0; i < newItems.length; i++) {
+      if(newItems[i].type === item) {
+        if(newItems[i].currentStock > 0 && newItems[i].price <= payment) {
+          console.log(newItems[i].currentStock)
+          newItems[i].currentStock -= 1;
+          console.log(newItems[i].currentStock)          
+          console.log(item);
+          return item;
+        } else if(newItems[i].currentStock > 0 && newItems[i].price > payment) { 
+          console.log('insufficient payment');
+          return 'Please insert more coins';
+        } else if(newItems[i].currentStock === 0) {
+          console.log('no stock');
+          return 'Out of stock, please make another selection';
+        }
+      }
+    }
+  }
 
 }
+
 
 module.exports = vendingMachine;
