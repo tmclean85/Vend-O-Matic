@@ -1,10 +1,9 @@
 {
   "name": "vend-o-matic",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --verbose --coverage --watch"
   },
   "repository": {
     "type": "git",
@@ -16,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/tmclean85/Vend-O-Matic/issues"
   },
-  "homepage": "https://github.com/tmclean85/Vend-O-Matic#readme"
+  "homepage": "https://github.com/tmclean85/Vend-O-Matic#readme",
+  "description": "",
+  "devDependencies": {
+    "jest-cli": "^20.0.4"
+  }
 }
