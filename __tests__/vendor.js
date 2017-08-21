@@ -2,6 +2,39 @@ const vendingMachine = require('../src/data.js');
 const items = require('../src/data.js');
 const change = require('../src/data.js');
 
+let payment = [
+  {
+    title: "nickel",
+    value: 0.05,
+    given: 0
+  },
+  {
+    title: "dime",
+    value: 0.10,
+    currentQuantity: 15,
+    given: 5
+  },
+  {
+    title: "quarter",
+    value: 0.25,
+    currentQuantity: 20,
+    given: 1
+  },
+  {
+    title: "loonie",
+    value: 1,
+    currentQuantity: 5,
+    given: 1
+  },
+  {
+    title: "toonie",
+    value: 2,
+    currentQuantity: 10,
+    given: 0    
+  }  
+];
+
+
 describe('vendingMachine', () => {
   beforeEach(() => {
     vendor = new vendingMachine;
@@ -30,6 +63,12 @@ describe('vendingMachine', () => {
       expect(vendor.restockItem()).toMatchObject(vendor.restockItem());
     })
   })  
+
+  describe('track total money inserted', () => {
+    it('should track payment', () => {
+      expect(vendor.trackPayment(payment)).toBe(1.75);
+    })
+  })
 
 
 
