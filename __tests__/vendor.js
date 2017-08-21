@@ -52,6 +52,12 @@ describe('vendingMachine', () => {
     })
   })
 
+  describe('when the supply of any coin type gets low', () => {
+    it('should audit and refill all coin types', () => {
+      expect(vendor.restockChange());
+    })
+  })
+
   describe('when an out of stock item is selected for purchase', () => {
     it('should provide an error message', () => {
       expect(vendor.dispenseItem("chips", 1.25)).toEqual('Out of stock, please make another selection');
@@ -64,6 +70,12 @@ describe('vendingMachine', () => {
     })
   })
 
+  describe('when an in-stock item is selected and the correct payment is given', () => {
+    it('should dispense the requested item', () => {
+      expect(vendor.dispenseItem("granola bar", 1.50)).toEqual('Please enjoy your granola bar');
+    })
+  })
+
   describe('when stock is found to be getting low', () => {
     it('should check all current stock and refill to max if low', () => {
       expect(vendor.restockItem()).toMatchObject(vendor.restockItem());
@@ -72,6 +84,7 @@ describe('vendingMachine', () => {
 
   describe('when a customer is inserting coins', () => {
     it('should track total payment given', () => {
+// Expect method to provide accurate sum of payment array      
       expect(vendor.trackPayment(payment)).toBe(1.75);
     })
   })
