@@ -93,18 +93,18 @@ class vendingMachine {
 
   restockChange() {
     let newChange = change;
-    // console.log(newChange);    
     for(let i = 0; i < newChange.length; i++) {
       if(newChange[i].currentQuantity <= newChange[i].minQuantity) {
-        newChange[i].currentQuantity = newChange[i].maxQuantity
+        newChange[i].currentQuantity = newChange[i].maxQuantity;
       }
     }
-    // console.log(newChange);            
+    return newChange;          
   }
 
   trackPayment(payment) {
     let finalPayment = 0;
-    const paymentGiven = payment;
+    let newChangeQuantity = change;
+    let paymentGiven = payment;
     for(let i = 0; i < paymentGiven.length; i++) {
       finalPayment += (paymentGiven[i].value * paymentGiven[i].given)
       // console.log(finalPayment)
@@ -114,8 +114,8 @@ class vendingMachine {
   }
 
   dispenseItem(item, coinsPaid) {
-    const newItems = items;
-    const newChange = change;
+    let newItems = items;
+    let newChange = change;
     for(let i = 0; i < newItems.length; i++) {
       if(newItems[i].type === item) {
         if(newItems[i].currentStock > 0 && newItems[i].price <= coinsPaid) {
@@ -126,10 +126,25 @@ class vendingMachine {
         } else if(newItems[i].currentStock > 0 && newItems[i].price > coinsPaid) { 
           return 'Please insert more coins';
         } else if(newItems[i].currentStock === 0) {
-          console.log('no stock');
           return 'Out of stock, please make another selection';
         }
       }
+    }
+  }
+
+  coinValidator(payment) {
+    let insertedCoins = payment;
+    for(let i = 0; i < insertedCoins.length; i++) {
+      let coin = insertedCoins[i].title;
+      let wasGiven = insertedCoins[i].given;
+      if(wasGiven > 0) {
+        if(coin === "nickel" || coin === "dime" || coin === "quarter" || coin === "loonie" || coin === "toonie") {
+          console.log('Thank you for the ' + coin);
+        } else {
+          console.log('I cannot accept this ' + coin)
+          return false;
+        }
+      }  
     }
   }
 

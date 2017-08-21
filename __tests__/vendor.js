@@ -31,7 +31,8 @@ let payment = [
     value: 2,
     currentQuantity: 10,
     given: 0    
-  }  
+  },
+  
 ];
 
 
@@ -54,7 +55,7 @@ describe('vendingMachine', () => {
 
   describe('when the supply of any coin type gets low', () => {
     it('should audit and refill all coin types', () => {
-      expect(vendor.restockChange());
+      expect(vendor.restockChange()).toMatchObject(vendor.restockChange());
     })
   })
 
@@ -67,12 +68,6 @@ describe('vendingMachine', () => {
   describe('when insufficient payment is provided', () => {
     it('should provide an error message', () => {
       expect(vendor.dispenseItem("chocolate bar", 0.50)).toEqual('Please insert more coins')
-    })
-  })
-
-  describe('when an in-stock item is selected and the correct payment is given', () => {
-    it('should dispense the requested item', () => {
-      expect(vendor.dispenseItem("granola bar", 1.50)).toEqual('Please enjoy your granola bar');
     })
   })
 
@@ -96,6 +91,17 @@ describe('vendingMachine', () => {
     })
   })
 
+  describe('when a customer attempts to insert invalid coins', () => {
+    it('should provide an error message and return false', () => {
+      expect(vendor.coinValidator(payment)).toBeUndefined();
+    })
+  })
+
+  describe('when an in-stock item is selected and the correct payment is given', () => {
+    it('should dispense the requested item', () => {
+      expect(vendor.dispenseItem("granola bar", 1.50)).toEqual('Please enjoy your granola bar');
+    })
+  })
 
 
 
