@@ -2,27 +2,37 @@ let change = [
   {
     title: "nickel",
     value: 0.05,
-    currentQuantity: 10
+    currentQuantity: 10,
+    minQuantity: 10,
+    maxQuantity: 75
   },
   {
     title: "dime",
     value: 0.10,
-    currentQuantity: 15
+    currentQuantity: 15,
+    minQuantity: 10,
+    maxQuantity: 75    
   },
   {
     title: "quarter",
     value: 0.25,
-    currentQuantity: 20
+    currentQuantity: 20,
+    minQuantity: 10,
+    maxQuantity: 75    
   },
   {
     title: "loonie",
     value: 1,
-    currentQuantity: 5
+    currentQuantity: 5,
+    minQuantity: 10,
+    maxQuantity: 75    
   },
   {
     title: "toonie",
     value: 2,
-    currentQuantity: 10
+    currentQuantity: 18,
+    minQuantity: 10,
+    maxQuantity: 75    
   }
 ];
 
@@ -81,6 +91,17 @@ class vendingMachine {
     return newItems;
   }
 
+  restockChange() {
+    let newChange = change;
+    // console.log(newChange);    
+    for(let i = 0; i < newChange.length; i++) {
+      if(newChange[i].currentQuantity <= newChange[i].minQuantity) {
+        newChange[i].currentQuantity = newChange[i].maxQuantity
+      }
+    }
+    // console.log(newChange);            
+  }
+
   trackPayment(payment) {
     let finalPayment = 0;
     const paymentGiven = payment;
@@ -98,16 +119,14 @@ class vendingMachine {
     for(let i = 0; i < newItems.length; i++) {
       if(newItems[i].type === item) {
         if(newItems[i].currentStock > 0 && newItems[i].price <= coinsPaid) {
-          // console.log(newItems[i].currentStock)
           newItems[i].currentStock -= 1;
-          // console.log(newItems[i].currentStock)          
-          // console.log(item);
-          return item;
+          const enjoy = ('Please enjoy your ' + item)
+          console.log(enjoy)
+          return enjoy;
         } else if(newItems[i].currentStock > 0 && newItems[i].price > coinsPaid) { 
-          // console.log('insufficient payment');
           return 'Please insert more coins';
         } else if(newItems[i].currentStock === 0) {
-          // console.log('no stock');
+          console.log('no stock');
           return 'Out of stock, please make another selection';
         }
       }
@@ -123,10 +142,8 @@ class vendingMachine {
       console.log('change given:', -currentBalance);
       return(currentBalance);
     }
-
   }
 
 }
-
 
 module.exports = vendingMachine;
