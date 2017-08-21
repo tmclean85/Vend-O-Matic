@@ -151,7 +151,7 @@ class vendingMachine {
   giveChange(coinsNeeded, coinsPaid) {
     let currentBalance = (coinsNeeded - coinsPaid);
     if(currentBalance > 0) {
-      console.log('insufficient, pay', currentBalance, 'more');
+      // console.log('insufficient, pay', currentBalance, 'more');
       return (-currentBalance);
     } else {
       console.log('change given:', -currentBalance);
